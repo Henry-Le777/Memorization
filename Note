@@ -1,0 +1,39 @@
+<!-- <div class="welcome">
+                <h2>Welcome to Memorize</h2>
+                <p>Select a flashcard set to begin.</p>
+            </div>
+            <section class="edit-page">
+                <div class="edit-header">
+                    <h2 class="set-title"></h2>
+
+                    <div class="set-actions">
+
+                        <button class="rename-button">Rename</button>
+
+                        <button class="delete-button">Delete</button>
+
+                        <button class="play-button">Play</button>
+
+                    </div>
+                </div>
+                <div class="edit-content">
+                    <div class="card-list">
+                    </div>
+
+                    <form class="card-form">
+                        <input
+                            type="text"
+                            id="question-input"
+                            placeholder="Question">
+
+                        <input
+                            type="text"
+                            id="answer-input"
+                            placeholder="Answer">
+
+                        <button type="submit">
+                            Add Card
+                        </button>
+                    </form>
+                </div>
+            </section> -->

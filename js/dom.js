@@ -30,3 +30,10 @@ export const avatar = document.querySelector(".avatar");
 export const username = document.querySelector(".username");
 export const signOutButton = document.querySelector(".signout-button");
 export const menuButton = document.querySelector(".menu-button");
+
+export const importExportModal = document.querySelector(".import-export-modal");
+export const importExportTitle = document.querySelector("#import-export-title");
+export const importExportTextarea = document.querySelector("#import-export-textarea");
+export const importExportStats = document.querySelector("#import-export-stats");
+export const importExportActionButton = document.querySelector("#import-export-action-button");
+export const importExportCancelButton = document.querySelector("#import-export-cancel-button");

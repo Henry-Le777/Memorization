@@ -189,10 +189,17 @@ function renderEdit() {
                 </div>
 
             </div>
-            <div class="card-actions">
-                <button class="add-button">
-                    Add Card
-                </button>
+
+            <div class="edit-toolbar">
+                <div class="edit-toolbar-row">
+                    <button class="add-button">
+                        + Add Card
+                    </button>
+                </div>
+                <div class="edit-toolbar-row">
+                    <button class="import-button">📥 Import</button>
+                    <button class="export-button">📤 Export</button>
+                </div>
             </div>
 
             <div class="card-list">

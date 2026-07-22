@@ -25,7 +25,10 @@ import {
     playSidebarButton,
     editSidebarButton,
     deleteSidebarButton,
-    menuButton
+    menuButton,
+
+    importExportActionButton,
+    importExportCancelButton
 } from "./dom.js";
 
 import {
@@ -52,7 +55,13 @@ import {
 
     handleEditCard,
     saveEditedCard,
-    closeEditCardModal
+    closeEditCardModal,
+
+    openImportModal,
+    openExportModal,
+    openExportAllModal,
+    closeImportExportModal,
+    handleImportExportAction
 } from "./cards.js";
 
 import {
@@ -79,10 +88,20 @@ export function setupEditEvents() {
     const deleteCardButtons = display.querySelectorAll(".delete-card-button");
     const renameButton = display.querySelector(".rename-button");
     const addButton = display.querySelector(".add-button");
+    const importButton = display.querySelector(".import-button");
+    const exportButton = display.querySelector(".export-button");
 
     renameButton.addEventListener("click", openRenameModal);
 
     addButton.addEventListener("click", openAddCardModal);
+
+    if (importButton) {
+        importButton.addEventListener("click", openImportModal);
+    }
+
+    if (exportButton) {
+        exportButton.addEventListener("click", openExportModal);
+    }
 
     deleteCardButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -126,6 +145,10 @@ export function setupModalEvents() {
     editCardCancelButton.addEventListener("click",closeEditCardModal);
 
     editCardSaveButton.addEventListener("click",saveEditedCard);
+
+    importExportActionButton.addEventListener("click", handleImportExportAction);
+
+    importExportCancelButton.addEventListener("click", closeImportExportModal);
 
 }
 
@@ -515,12 +538,36 @@ export function setupSidebarEvents() {
 export function setupMobileMenu() {
 
     const sidebar = document.querySelector(".sidebar");
+    const overlay = document.querySelector(".sidebar-overlay");
+    const closeButton = document.querySelector(".sidebar-close-button");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+    }
 
     menuButton.addEventListener("click", () => {
-
-        sidebar.classList.toggle("open");
-
+        if (sidebar.classList.contains("open")) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
     });
+
+    if (closeButton) {
+        closeButton.addEventListener("click", closeSidebar);
+    }
+
+    if (overlay) {
+        overlay.addEventListener("click", closeSidebar);
+    }
 
 }
 

@@ -31,7 +31,14 @@
 
     <main class="main">
 
+        <div class="sidebar-overlay"></div>
+
         <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Menu</h2>
+                <button class="sidebar-close-button" aria-label="Close menu">✕</button>
+            </div>
 
             <section class="set-list">
                 <h2>Flashcard sets</h2>
@@ -140,6 +147,38 @@
 
                     Save
 
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="import-export-modal hidden">
+        <div class="modal-content">
+
+            <h2 id="import-export-title">Import Cards</h2>
+
+            <p class="import-export-description">
+                Paste cards in <strong>question <span class="tab-symbol">[Tab]</span> answer</strong> format (one per line):
+            </p>
+
+            <textarea
+                id="import-export-textarea"
+                class="import-export-textarea"
+                placeholder="question1	answer1&#10;question2	answer2&#10;question3	answer3"
+                spellcheck="false"
+                rows="8"></textarea>
+
+            <div class="import-export-stats" id="import-export-stats"></div>
+
+            <div class="modal-buttons">
+
+                <button type="button" id="import-export-cancel-button">
+                    Cancel
+                </button>
+
+                <button type="button" id="import-export-action-button" class="action-button primary">
+                    Import
                 </button>
 
             </div>

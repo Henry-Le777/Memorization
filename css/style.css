@@ -1667,33 +1667,38 @@ body {
 
     .sidebar {
         position: fixed;
-        top: var(--header-height);
         left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
 
-        height: calc(100vh - var(--header-height));
+        height: auto;
+        max-height: 75vh;
 
-        width: 280px;
+        width: 100%;
 
-        transform: translateX(-100%);
+        transform: translateY(100%);
 
-        max-width: 85vw;
-
-        overflow-x: hidden;
+        overflow-y: auto;
 
         z-index: 99;
 
         box-shadow: none;
 
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-right: none;
+
+        border-radius: 16px 16px 0 0;
+
+        transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
 
     }
 
 
     .sidebar.open {
 
-        transform: translateX(0);
+        transform: translateY(0);
 
-        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
 
     }
 
@@ -1703,6 +1708,22 @@ body {
         justify-content: space-between;
         padding: var(--space-md) var(--space-lg);
         border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: var(--surface);
+        z-index: 1;
+    }
+
+    .sidebar-header::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 4px;
+        border-radius: 2px;
+        background: #ccc;
     }
 
     .sidebar-close-button {

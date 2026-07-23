@@ -20,6 +20,7 @@ const LEVEL_PAIRS = [
 ];
 
 const MAX_LEVEL = LEVEL_PAIRS.length * 2 - 1; // 7 (0-based: 0..7)
+const PHASES_PER_CARD = (MAX_LEVEL + 1) * 2; // 16 (8 levels × 2 phases)
 
 function buildStudyQueue(cards) {
     // Shuffle cards so they appear in random order (like Quizlet)
@@ -47,7 +48,7 @@ export function getCurrentMode(study) {
  * Each card goes through: level 0 (phase 0, phase 1), level 1 (phase 0, phase 1), ...
  */
 export function calculateMixedProgress(game) {
-    const totalPhases = LEVEL_PAIRS.length * 2; // 4 levels × 2 phases = 8
+    const totalPhases = PHASES_PER_CARD; // 16 phases per card
     const totalSteps = game.studyQueue.length * totalPhases;
 
     let completedSteps = 0;
@@ -233,7 +234,10 @@ function createGameState(set) {
         type: set.studyMode,
 
         studyQueue: buildStudyQueue(set.cards),
-        lastStudyId: null
+        lastStudyId: null,
+
+        // Safety counter to prevent infinite loops in mixed mode
+        mixedSafetyCounter: 0
     };
 }
 
@@ -304,6 +308,15 @@ export function generateQuestion() {
     let studyMode = appState.studyMode;
 
     if (studyMode === "mixed") {
+        // Safety check: prevent infinite loops
+        game.mixedSafetyCounter = (game.mixedSafetyCounter || 0) + 1;
+        const maxIterations = game.studyQueue.length * PHASES_PER_CARD * 2;
+        if (game.mixedSafetyCounter > maxIterations) {
+            console.warn("Mixed mode safety limit reached, ending game");
+            endGame();
+            return;
+        }
+
         const currentStudy = getNextStudy(game);
 
         if (!currentStudy) {

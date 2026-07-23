@@ -43,6 +43,7 @@ import {
     updateHostConnection,
     clearBonusTimer,
     resetMultiplayerState,
+    cleanupAbandonedRoom,
 } from "./multiplayer.js";
 import {
     renderMultiplayerGame,
@@ -481,6 +482,48 @@ export function setupMultiplayerEvents() {
     });
     mpRoomCodeInput?.addEventListener("input", () => {
         mpJoinError.classList.add("hidden");
+    });
+
+    // Auto-cleanup: When window/tab is closed or page is unloaded,
+    // automatically delete the room if the user is the host
+    setupRoomCleanupOnUnload();
+}
+
+/**
+ * Set up event listeners to automatically clean up the room when the
+ * host's browser tab/window is closed or the page is unloaded.
+ * This prevents orphaned room documents from persisting in Firestore.
+ */
+function setupRoomCleanupOnUnload() {
+    let isCleaningUp = false;
+
+    async function performCleanup() {
+        if (isCleaningUp) return;
+        isCleaningUp = true;
+
+        const mp = appState.multiplayer;
+        if (!mp.roomCode || !mp.isHost) return;
+
+        try {
+            // Use sendBeacon for more reliable delivery on tab close
+            // But for Firestore operations, we need to do it directly
+            await cleanupAbandonedRoom();
+        } catch (err) {
+            console.error("Room cleanup on unload failed:", err);
+        }
+    }
+
+    // Listen for tab/window close or navigate away
+    window.addEventListener("beforeunload", () => {
+        performCleanup();
+    });
+
+    // Listen for visibility change (tab becomes hidden = likely closing/switching)
+    // This provides an additional cleanup opportunity
+    window.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden" && appState.multiplayer.roomCode && appState.multiplayer.isHost) {
+            performCleanup();
+        }
     });
 }
 

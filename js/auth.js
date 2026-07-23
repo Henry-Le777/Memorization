@@ -62,16 +62,48 @@ export function updateAuthUI(user) {
 
         signOutButton.classList.remove("hidden");
 
-        avatar.classList.remove("hidden");
-
         username.classList.remove("hidden");
-
-        avatar.src = user.photoURL;
 
         username.textContent = user.displayName;
 
         newSetButton.disabled = false;
-        
+
+        // Handle avatar: show with fallback on error
+        avatar.classList.remove("hidden");
+        avatar.alt = `${user.displayName}'s avatar`;
+
+        // Set onerror fallback: if image fails to load, show initials
+        avatar.onerror = function() {
+            this.onerror = null; // prevent infinite loop
+            this.removeAttribute("src");
+            this.style.background = "linear-gradient(135deg, var(--primary), var(--primary-light))";
+            this.style.display = "flex";
+            this.style.alignItems = "center";
+            this.style.justifyContent = "center";
+            this.style.color = "white";
+            this.style.fontWeight = "bold";
+            this.style.fontSize = "16px";
+            this.textContent = (user.displayName || "?")[0].toUpperCase();
+        };
+
+        // Add timestamp to bust browser cache when switching accounts
+        const photoURL = user.photoURL;
+        if (photoURL) {
+            // Cache-bust: append timestamp so browser re-fetches for different accounts
+            const separator = photoURL.includes("?") ? "&" : "?";
+            avatar.src = `${photoURL}${separator}t=${Date.now()}`;
+        } else {
+            // No photoURL: use a fallback with initials
+            avatar.removeAttribute("src");
+            avatar.style.background = "linear-gradient(135deg, var(--primary), var(--primary-light))";
+            avatar.style.display = "flex";
+            avatar.style.alignItems = "center";
+            avatar.style.justifyContent = "center";
+            avatar.style.color = "white";
+            avatar.style.fontWeight = "bold";
+            avatar.style.fontSize = "16px";
+            avatar.textContent = (user.displayName || "?")[0].toUpperCase();
+        }
 
     } else {
 
@@ -84,6 +116,15 @@ export function updateAuthUI(user) {
         username.classList.add("hidden");
 
         avatar.removeAttribute("src");
+        avatar.onerror = null;
+        avatar.style.background = "";
+        avatar.style.display = "";
+        avatar.style.alignItems = "";
+        avatar.style.justifyContent = "";
+        avatar.style.color = "";
+        avatar.style.fontWeight = "";
+        avatar.style.fontSize = "";
+        avatar.textContent = "";
 
         username.textContent = "";
 
@@ -92,29 +133,6 @@ export function updateAuthUI(user) {
     }
 
 }
-
-// export function observeAuth() {
-
-//     onAuthStateChanged(auth, async user => {
-
-//         appState.user = user;
-
-//         updateAuthUI(user);
-
-
-//         if (user) {
-
-//             await loadUserProfile();
-
-//             await loadUserSets();
-
-//             console.log("User data loaded");
-
-//         }
-
-//     });
-
-// }
 
 export function observeAuth() {
 

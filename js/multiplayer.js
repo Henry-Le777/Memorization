@@ -397,6 +397,31 @@ export async function endGame() {
 }
 
 /**
+ * Clean up an abandoned room (used when host closes tab/window unexpectedly)
+ * This is a standalone function that doesn't rely on appState to be valid.
+ */
+export async function cleanupAbandonedRoom() {
+    const roomCode = appState.multiplayer.roomCode;
+    if (!roomCode) return;
+
+    try {
+        const roomRef = doc(db, "multiplayer_games", roomCode);
+        const playersSnapshot = await getDocs(collection(db, "multiplayer_games", roomCode, "players"));
+
+        const batch = writeBatch(db);
+        batch.delete(roomRef);
+        playersSnapshot.forEach(playerDoc => {
+            batch.delete(playerDoc.ref);
+        });
+
+        await batch.commit();
+        console.log("Cleaned up abandoned room:", roomCode);
+    } catch (error) {
+        console.error("Error cleaning up abandoned room:", error);
+    }
+}
+
+/**
  * Delete the room after game is done
  */
 export async function deleteRoom() {

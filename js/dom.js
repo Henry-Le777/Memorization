@@ -37,3 +37,34 @@ export const importExportTextarea = document.querySelector("#import-export-texta
 export const importExportStats = document.querySelector("#import-export-stats");
 export const importExportActionButton = document.querySelector("#import-export-action-button");
 export const importExportCancelButton = document.querySelector("#import-export-cancel-button");
+
+// Multiplayer DOM elements
+export const mpLobbyModal = document.querySelector(".mp-lobby-modal");
+export const mpRoomCodeDisplay = document.querySelector("#mp-room-code-display");
+export const mpLobbySetName = document.querySelector("#mp-lobby-set-name");
+export const mpLobbyGameMode = document.querySelector("#mp-lobby-game-mode");
+export const mpPlayerCount = document.querySelector("#mp-player-count");
+export const mpPlayerList = document.querySelector("#mp-player-list");
+export const mpCancelLobbyButton = document.querySelector("#mp-cancel-lobby-button");
+export const mpStartGameButton = document.getElementById("mp-start-game-button");
+
+export const mpJoinModal = document.querySelector(".mp-join-modal");
+export const mpRoomCodeInput = document.querySelector("#mp-room-code-input");
+export const mpJoinError = document.querySelector("#mp-join-error");
+export const mpJoinCancelButton = document.querySelector("#mp-join-cancel-button");
+export const mpJoinConfirmButton = document.querySelector("#mp-join-confirm-button");
+
+export const mpWaitingModal = document.querySelector(".mp-waiting-modal");
+export const mpWaitingRoomCode = document.querySelector("#mp-waiting-room-code");
+export const mpWaitingSetName = document.querySelector("#mp-waiting-set-name");
+export const mpWaitingGameMode = document.querySelector("#mp-waiting-game-mode");
+export const mpPlayerNameDisplay = document.querySelector("#mp-player-name-display");
+export const mpWaitingPlayers = document.querySelector("#mp-waiting-players");
+export const mpLeaveWaitingButton = document.querySelector("#mp-leave-waiting-button");
+
+export const mpDashboard = document.querySelector(".mp-dashboard");
+export const mpDashboardQuestion = document.querySelector("#mp-dashboard-question");
+export const mpLeaderboardList = document.querySelector("#mp-leaderboard-list");
+export const mpEndGameButton = document.querySelector("#mp-end-game-button");
+
+export const sidebarJoinGame = document.querySelector("#sidebar-join-game");

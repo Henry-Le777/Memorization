@@ -58,6 +58,12 @@
                 </button>
             </section>
 
+            <section class="sidebar-actions mp-sidebar-actions">
+                <button id="sidebar-join-game" class="action-button secondary">
+                    🔗 Join Game
+                </button>
+            </section>
+
         </aside>
 
         <section class="display">
@@ -251,8 +257,91 @@
 
         </div>
 
-    </div>    
-    <script type="module" src="js/main.js"></script>
+    </div>
 
+    <!-- Multiplayer Lobby Modal (Host) -->
+    <div class="mp-lobby-modal modal hidden">
+        <div class="modal-content mp-lobby-content">
+            <h2>Game Lobby</h2>
+            <div class="mp-lobby-room-code">
+                <span>Room Code:</span>
+                <strong id="mp-room-code-display">--------</strong>
+            </div>
+            <div class="mp-lobby-set-info">
+                <span id="mp-lobby-set-name"></span>
+                <span id="mp-lobby-game-mode"></span>
+            </div>
+            <div class="mp-lobby-players">
+                <h3>Players (<span id="mp-player-count">0</span>)</h3>
+                <div id="mp-player-list" class="mp-player-list"></div>
+            </div>
+            <div class="modal-buttons">
+                <button type="button" id="mp-cancel-lobby-button" class="action-button secondary">Cancel</button>
+                <button type="button" id="mp-start-game-button" class="action-button primary" disabled>Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiplayer Join Modal -->
+    <div class="mp-join-modal modal hidden">
+        <div class="modal-content">
+            <h2>Join Game</h2>
+            <p class="mp-join-description">Enter the 8-digit room code to join:</p>
+            <input
+                type="text"
+                id="mp-room-code-input"
+                class="mp-room-code-input"
+                placeholder="e.g. 12345678"
+                maxlength="8"
+                inputmode="numeric"
+                pattern="[0-9]*">
+            <div id="mp-join-error" class="mp-join-error hidden"></div>
+            <div class="modal-buttons">
+                <button type="button" id="mp-join-cancel-button" class="action-button secondary">Cancel</button>
+                <button type="button" id="mp-join-confirm-button" class="action-button primary">Join</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiplayer Waiting Modal (Player) -->
+    <div class="mp-waiting-modal modal hidden">
+        <div class="modal-content mp-lobby-content">
+            <h2>Waiting for Host...</h2>
+            <div class="mp-lobby-room-code">
+                <span>Room Code:</span>
+                <strong id="mp-waiting-room-code">--------</strong>
+            </div>
+            <div class="mp-lobby-set-info">
+                <span id="mp-waiting-set-name"></span>
+                <span id="mp-waiting-game-mode"></span>
+            </div>
+            <div class="mp-lobby-players">
+                <h3>Your Name: <span id="mp-player-name-display"></span></h3>
+                <div id="mp-waiting-players" class="mp-player-list"></div>
+            </div>
+            <div class="modal-buttons">
+                <button type="button" id="mp-leave-waiting-button" class="action-button secondary">Leave</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiplayer Host Dashboard -->
+    <div class="mp-dashboard hidden">
+        <div class="mp-dashboard-content">
+            <div class="mp-dashboard-header">
+                <h2>Game Dashboard</h2>
+                <span id="mp-dashboard-question">Question 1 / 10</span>
+            </div>
+            <div class="mp-dashboard-leaderboard">
+                <h3>Leaderboard</h3>
+                <div id="mp-leaderboard-list" class="mp-leaderboard-list"></div>
+            </div>
+            <div class="mp-dashboard-actions">
+                <button type="button" id="mp-end-game-button" class="action-button danger">End Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

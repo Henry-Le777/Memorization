@@ -85,11 +85,16 @@ import {
     initAuth
 } from "./auth.js";
 
+import {
+    showMultiplayerJoinView,
+    setupMultiplayerEvents
+} from "./multiplayer-events.js";
+
 function init() {
     initAuth();
     setupEvents();
+    setupMultiplayerEvents();
     render();
-
 }
 
 init();

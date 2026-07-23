@@ -496,6 +496,16 @@ export function setupPlayHomeEvents() {
     soloButton.addEventListener("click", () => {
         startSoloMode();
     });
+    
+    const multiplayerButton = display.querySelector(
+        "#multiplayer-button"
+    );
+    if (multiplayerButton) {
+        multiplayerButton.addEventListener("click", () => {
+            appState.mode = "multiplayer";
+            render();
+        });
+    }
 }
 
 export function setupSoloResultEvents() {

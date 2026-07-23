@@ -31,6 +31,10 @@ import {
     getCurrentMode
 } from "./game.js"
 
+import {
+    showMultiplayerJoinView
+} from "./multiplayer-events.js";
+
 export function render() {
     renderSidebar();
     renderDisplay();
@@ -88,6 +92,10 @@ function renderDisplay() {
             renderSoloGame();
             break;
 
+        case "multiplayer-play":
+            // Rendered via multiplayer-render.js
+            break;
+
         case "solo-result":
             renderSoloResult();
             break;
@@ -99,6 +107,9 @@ function renderDisplay() {
         case "flashcard-result":
             renderFlashcardResult();
             break;
+        case "multiplayer":
+            showMultiplayerJoinView();
+            return;
         default:
             renderWelcome();
 
@@ -264,15 +275,15 @@ function renderPlayHome() {
                 ` : ""}
             </button>
             <button
-                class="mode-card"
-                disabled>
+                id="multiplayer-button"
+                class="mode-card">
 
                 <span class="mode-title">
                     👥 Multiplayer
                 </span>
 
                 <span class="mode-description">
-                    Coming Soon
+                    Play with friends online
                 </span>
 
             </button>

@@ -13,6 +13,29 @@ export const appState = {
         score: 0,
     },
     studyMode: null,
+    // Multiplayer state
+    multiplayer: {
+        roomCode: null,
+        playerId: null,
+        displayName: null,
+        isHost: false,
+        hostId: null,
+        set: null,
+        status: null,
+        currentQuestion: 0,
+        totalQuestions: 0,
+        players: {},
+        questionStartTime: null,
+        gameModes: [],
+        gameMode: null,
+        strictMode: false,
+        bonusTimeMs: 5000,
+        timeLimitMs: 30000,
+        bonusTimerId: null,
+        lastResult: null,
+        gameStartTime: null,
+        timerIntervalId: null,
+    },
 };
 
 export function getSelectedSet() {
